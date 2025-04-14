@@ -1,23 +1,7 @@
-with open("Exam_Table.csv", "r") as file:
-    csvreader = file.readlines()
-csvreader = csvreader[1:]
+import pandas as pd
+df = pd.read_csv('Exam_Table.csv')
 
-Genus_Po = []
+genus_data = df[df['Genus'].str.startswith("St", na=False)] 
+print(genus_data)
 
-for row in csvreader:
-    parts = row.strip().split(",")
-    if len(parts) > 1:
-        name = parts[9].strip()
-        if name.startswith(str("St")):
-            Genus_Po.append(row.strip())
-
-with open("b2_output1.csv", "w") as outfile:
-    for item in Genus_Po:
-        outfile.write(item + "\n")
-
-print()
-
-with open ("b2_output1.csv", "r") as file:
-    csvreader = file.readlines()
-for row in csvreader:
-    print(row)
+genus_data.to_csv("b1_output1_copy.csv", index=False)
